@@ -41,7 +41,7 @@ jobs:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
         run: |
           # Define the Render API endpoint and service ID
-          SERVICE_ID=srv-cstl09u8ii6s73fk1icg # Replace this with your actual Service ID
+          SERVICE_ID=srv-cstl09u8ii6s73fk1icg
           RENDER_API_URL="https://api.render.com/v1/services/srv-cstl09u8ii6s73fk1icg/deploys"
           # Trigger the deployment using Render's API
           curl -X POST \
