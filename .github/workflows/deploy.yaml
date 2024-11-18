@@ -34,7 +34,7 @@ jobs:
         run: sleep 10
           
       - name: Check server health
-        run: curl http://localhost:3000
+        run: curl https://week4-group-project.onrender.com/
   
       - name: Trigger Render Deployment
         env:
