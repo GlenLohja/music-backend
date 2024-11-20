@@ -21,7 +21,7 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          project_id: student-sandbox-project
 
       - name: Configure Docker for Google Cloud
         run: gcloud auth configure-docker --quiet
