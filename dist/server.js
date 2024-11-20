@@ -19,7 +19,7 @@ const db_1 = require("./database/db");
 const authRouter_1 = __importDefault(require("./routes/authRouter"));
 const userRouter_1 = __importDefault(require("./routes/userRouter"));
 const musicRouter_1 = __importDefault(require("./routes/musicRouter"));
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -31,11 +31,11 @@ const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
         client.release();
         app.use("/api", authRouter_1.default, userRouter_1.default, musicRouter_1.default);
         app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
+            console.log(`Server is running on portrt ${PORT}`);
         });
     }
     catch (error) {
-        console.error("Error starting server:", error);
+        console.error("Error starting servesssr:", error);
     }
 });
 startServer();
