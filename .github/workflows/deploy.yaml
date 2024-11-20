@@ -29,16 +29,21 @@ jobs:
       - name: Build Docker image (without pushing)
         uses: docker/build-push-action@v4
         with:
-          push: true
-          tags: gcr.io/student-sandbox-project/music-app-glen  # Tagging the image with the commit hash
+          push: false
+          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}:${{ github.sha }}
           platforms: linux/amd64
+
+      - name: Push Docker image to Google Container Registry
+        run: |
+          IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
+          docker push $IMAGE_NAME:${{ github.sha }}
 
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@main
         with:
           service: music-app-glen
-          image: gcr.io/student-sandbox-project/music-app-glen 
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}:${{ github.sha }}
           region: europe-west1
           platform: managed
           allow-unauthenticated: true
