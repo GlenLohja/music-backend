@@ -47,4 +47,4 @@ jobs:
           region: europe-west1
           platform: managed
           allow-unauthenticated: true
-          timeout: 10000s 
+          timeout: 3600s 
