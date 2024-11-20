@@ -36,7 +36,7 @@ jobs:
       - name: Push Docker image to Google Container Registry
         run: |
           IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
-          docker tag fullstack-bhatn:latest $IMAGE_NAME:${{ github.sha }} # Re-tag the local image
+          docker tag music-app-glen:latest $IMAGE_NAME:${{ github.sha }} # Re-tag the local image
           docker push $IMAGE_NAME:${{ github.sha }} # Push the image to Google Container Registry
 
       - name: Deploy to Cloud Run
