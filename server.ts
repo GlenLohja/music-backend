@@ -22,11 +22,11 @@ const startServer = async () => {
         app.use("/api", authRouter, userRouter, musicRouter)
 
         app.listen(8080, () => {
-            console.log(`Server is running on port ${PORT}`);
+            console.log(`Server is running on portrt ${PORT}`);
         });
         
     } catch (error) {
-        console.error("Error starting server:", error);
+        console.error("Error starting servesssr:", error);
     }
 }
 
