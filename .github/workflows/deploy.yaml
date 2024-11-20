@@ -38,6 +38,5 @@ jobs:
           gcloud run deploy ${{ secrets.GCP_INSTANCE_ID }} \
             --image $IMAGE_NAME:$GITHUB_RUN_ID \
             --allow-unauthenticated \
-            --port ${{ secrets.GCP_APP_PORT }} \
             --region europe-west1 \
             --platform managed
