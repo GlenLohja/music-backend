@@ -43,7 +43,7 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@main
         with:
           service: music-app-glen
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/music-app-glen:${{ github.sha }}
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/music-app-glen
           region: europe-west1
           platform: managed
           allow-unauthenticated: true
