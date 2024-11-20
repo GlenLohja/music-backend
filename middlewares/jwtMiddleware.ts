@@ -7,7 +7,7 @@ export const authenticateJWT = async (req: Request, res: Response, next: NextFun
     const token = req.headers.authorization?.split(' ')[1]
     try {
         if (!token) {
-            return res.status(400).json({message: "test"})
+            return res.status(400).json({message: "tes112@t"})
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string)
@@ -22,3 +22,4 @@ export const authenticateJWT = async (req: Request, res: Response, next: NextFun
         return res.status(500).json({message: "Internal server error!"})
     }
 }
+``
