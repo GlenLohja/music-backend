@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: false
-          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}:${{ github.sha }}  # Tagging the image with the commit hash
+          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}  # Tagging the image with the commit hash
           platforms: linux/amd64
 
       - name: Push Docker image to Google Container Registry
@@ -43,7 +43,8 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v1
         with:
           service: music-app-glen
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}:${{ github.sha }}
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
           region: europe-west1
           platform: managed
           allow-unauthenticated: true
+ 
