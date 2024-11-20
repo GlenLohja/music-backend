@@ -3,7 +3,7 @@ name: Build and Deploy to Google Cloud
 on:
   push:
     branches:
-      - dev
+      - main
   workflow_dispatch:
 
 env:
