@@ -38,13 +38,12 @@ jobs:
           IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
           docker push $IMAGE_NAME:${{ github.sha }} # Push the image to Google Container Registry
 
+
       - name: Deploy to Cloud Run
-        run: |
-          IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
-          gcloud run deploy ${{ secrets.GCP_INSTANCE_ID }} \
-            --image $IMAGE_NAME:${{ github.sha }} \
-            --allow-unauthenticated \
-            --port ${{ secrets.GCP_APP_PORT }} \
-            --region europe-west1 \
-            --platform managed \
-            --timeout 300s
+        uses: google-github-actions/deploy-cloudrun@main
+        with:
+          service: music-app-glen
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/music-app-glen:latest
+          region: europe-west1
+          platform: managed
+          allow-unauthenticated: true
