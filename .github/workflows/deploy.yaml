@@ -36,7 +36,7 @@ jobs:
       - name: Check server health
         run: curl https://music-app-glen-413936355529.europe-west1.run.app/
 
-         env:
+      env:
       IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME}}
 
       - name: Print image tag
