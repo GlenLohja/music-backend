@@ -7,7 +7,7 @@ import authRouter from './routes/authRouter'
 import userRouter from './routes/userRouter'
 import musicRouter from './routes/musicRouter'
 
-const PORT =  8080;
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(cors())
@@ -21,8 +21,8 @@ const startServer = async () => {
         client.release();
         app.use("/api", authRouter, userRouter, musicRouter)
 
-        app.listen(8080, () => {
-            console.log(`Server is running on portrt 8080`);
+        app.listen(PORT, () => {
+            console.log(`Server is running on portrt ${PORT}`);
         });
         
     } catch (error) {
