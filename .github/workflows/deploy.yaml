@@ -26,18 +26,26 @@ jobs:
       - name: Configure Docker for Google Cloud
         run: gcloud auth configure-docker --quiet
 
-      - name: Build Docker image
+      - name: Build Docker image (without pushing)
+        uses: docker/build-push-action@v4
+        with:
+          push: false           # Set to false to avoid pushing to a registry
+          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}:${{ github.sha }}  # Tagging the image with the commit hash
+          platforms: linux/amd64 # Ensures compatibility with the Google Cloud environment
+
+      - name: Push Docker image to Google Container Registry
         run: |
           IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
-          docker build . -t $IMAGE_NAME:$GITHUB_RUN_ID
-          docker push $IMAGE_NAME:$GITHUB_RUN_ID
+          docker tag fullstack-bhatn:latest $IMAGE_NAME:${{ github.sha }} # Re-tag the local image
+          docker push $IMAGE_NAME:${{ github.sha }} # Push the image to Google Container Registry
 
       - name: Deploy to Cloud Run
         run: |
           IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
           gcloud run deploy ${{ secrets.GCP_INSTANCE_ID }} \
-            --image $IMAGE_NAME:$GITHUB_RUN_ID \
+            --image $IMAGE_NAME:${{ github.sha }} \
             --allow-unauthenticated \
             --port ${{ secrets.GCP_APP_PORT }} \
             --region europe-west1 \
-            --platform managed
+            --platform managed \
+            --timeout 300s
