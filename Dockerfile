@@ -19,6 +19,8 @@ COPY . .
 # Build TypeScript code
 RUN npm run build
 
+EXPOSE 8080
+
 
 # Start the application
 CMD ["node", "dist/server.js"]

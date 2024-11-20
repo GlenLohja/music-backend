@@ -1,0 +1,14 @@
+{
+    "type": "service_account",
+    "project_id": "student-sandbox-project",
+    "private_key_id": "df67736b4db24ed5b00f82ae72898e7ab02ad656",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCusG7m6ltybWCk\nOLhtW3tv5lIJRf7TmSkRFj0rqq+iKBG1S6Ip5BomJ0GaSqCQZgp0G9c+gJMCQWRS\nThnswUWzw0gqPoRNOYuhgw6Qx4JdHV5tJLSv6SBICCw5/kwLWZj/fNMjDuMQHbZU\nXxCiCA9a9B2nEgDqIhBwmFKRk9n+w764B10LVZu1MdxznWVGaHjVHsCVq8xywsaf\nQ0J7uCg9QrCJqzIv1BK6vHqkxXfJ6NaxQQ5Os0wm2QcGBOlQ83r5UGNrHnT8n/GD\nUh7EIOWqkmEHafkcIICHqCnmyUCkRzn13X6akUzZ1kYF22Jj2x5+hX2yxZHpaLpq\nWvyqu8pdAgMBAAECggEARAa+2TtwKwo+9RSFdUiHtBa74ZKZXmspW9cOMSABzyLN\nao0udCO4rxzgZiYjirfB4F8rHdLR7LHsUETLwa+t5gfo5VJ9ENmU72tq06RttrcG\nG3iMyGf/Qy2zk03c7RqSAwPn8KIOeCsp4oc2ofKDkEa5+WKAaqyjPEWE+d3aqWOI\nSo6gaUEZImPH8NbPjAPMYD9XMsuPEEOpWkUqPTTB1ume+1y2XPVFtX8+f9xghcF0\nnuA9NR1QLfZJb0zdHaiDOtCisIX9WAW/5lD+Dd8KKIlwOadnUv4CcXsqiBMpuonA\nxvr68W2GYomgvBXEOBEVYKrF3188bXEBPR3T8o5G3QKBgQD0Oy8aEePJduUZ914b\nKTFj0ECJs2v67j8ZlveMiNdO+WA6SyC01jIrsnjOyPaZYM18xWNEHw1ACJi7ykTZ\nVrEN9C3rhhww5pEXkar7loC69TQMPYoLpxc7HWGLvDRN1LMwwqrR2HjJj5LnWYkL\niaNccmLl1fjn2oJxNZNQQ+SYawKBgQC3G2KEwjL0EBaMkqD3kjZ3Xz/xBt/vFzW1\nihIwKYRXv7ErvAqT4gl5tQxKW1AS3HFnLc+veFuYOlAmGlqs5Yd65k0DvAkeUcqZ\n/GWpYjywhpFuaB3jlS6crfVoN6pObTMp8ZaA8FqUHxRsFl+3rtIj1Oc27pK/YJE3\ndc9bRHt6VwKBgBSqAUU6aER+e8njpSG1LYmdcCh2dtdnWw1mOZG5bkYvUVX9T0od\nqWcLFa+hT0QQ7bH13X1BB1T4pTuWVJby/84Hb+8yjKYSjAoreAULad7nqjyy5EAy\nJgQJa1xwUxiWu4aPofZZU3byX+KVL8Q7JAhJYVbC8OllEo5TkyBCbk/7AoGALvo5\npnHkfLV784jS/3Flw+6OCxqGbWL5BqBr1itwpsqpe9z8ocBGShFnG9SdkJk6Bwy7\n0fsBFOcxFPWB+gXRYnifnauqczrszeDxfCmWBHwh57+Sm4b0tIH1Ck3txb1CeSpg\nQKhptMLcjHaZDBkwFL1UrMU8pRjzaNUy4+mH/HUCgYEAqzEEW8/rAqHdlxGy/I0H\nrh+0LkFNef06XO6OUS/BerSVKOouShQ9JRvhDaaZoXMNYeGcVeBUz36mY0e0LDpj\nb6kVj7ZEJQ+V8HmILDL8B7YuZexpcSQd0W4yHw2zi5jJsD8Q22slNt7tf2UzS3sU\nXVKWD57ax1VThk80yJQ9mFM=\n-----END PRIVATE KEY-----\n",
+    "client_email": "githubaction@student-sandbox-project.iam.gserviceaccount.com",
+    "client_id": "105210933699493158924",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/githubaction%40student-sandbox-project.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
+  
