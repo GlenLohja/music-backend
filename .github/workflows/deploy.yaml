@@ -33,10 +33,10 @@ jobs:
           tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}  # Tagging the image with the commit hash
           platforms: linux/amd64
 
-      - name: Push Docker image to Google Container Registry
-        run: |
-          IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
-          docker push $IMAGE_NAME # Push the image to Google Container Registry
+      # - name: Push Docker image to Google Container Registry
+      #   run: |
+      #     IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
+      #     docker push $IMAGE_NAME # Push the image to Google Container Registry
 
 
       - name: Deploy to Cloud Run
