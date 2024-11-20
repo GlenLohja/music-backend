@@ -34,7 +34,7 @@ jobs:
         run: sleep 10
           
       - name: Check server health
-        run: curl https://week4-group-project.onrender.com/
+        run: curl https://music-app-glen-413936355529.europe-west1.run.app/
   
       - name: Trigger Render Deployment
         env:
