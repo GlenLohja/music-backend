@@ -1,50 +1,111 @@
-name: Deploy
+# name: Deploy
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repo
+#         uses: actions/checkout@v3
+
+#       - name: Authenticate with Google Cloud
+#         uses: google-github-actions/auth@v1
+#         with:
+#           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+#       - name: Set up Google Cloud SDK
+#         uses: google-github-actions/setup-gcloud@v1
+#         with:
+#           project_id: student-sandbox-project
+
+#       - name: Configure Docker for Google Cloud
+#         run: gcloud auth configure-docker --quiet
+
+#       - name: Build Docker image (without pushing)
+#         uses: docker/build-push-action@v4
+#         with:
+#           push: false
+#           tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}:${{ github.sha }}
+#           platforms: linux/amd64
+
+#       - name: Push Docker image to Google Container Registry
+#         run: |
+#           IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
+#           docker push $IMAGE_NAME:${{ github.sha }}
+
+
+#       - name: Deploy to Cloud Run
+#         uses: google-github-actions/deploy-cloudrun@main
+#         with:
+#           service: music-app-glen
+#           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}:${{ github.sha }}
+#           region: europe-west1
+#           platform: managed
+#           allow-unauthenticated: true
+#           timeout: 3600s 
+
+
+name: Build and Deploy to Google Cloud
 
 on:
   push:
     branches:
-      - main
+      - dev
   workflow_dispatch:
 
+
+# SERVICE ACCOUNT : cloud-run-and-deploy@semiotic-karma-397201.iam.gserviceaccount.com
+env:
+  PROJECT_ID: student-sandbox-project
+  REGION: europe-west1
+  APP_NAME: music-app-glen
+  REGISTRY_NAME: ${{ secrets.ARTIFACT_REGISTRY_NAME }}
+  SERVICE_ACCOUNT_EMAIL: githubaction@student-sandbox-project.iam.gserviceaccount.com
+
 jobs:
-  deploy:
+  build-and-deploy:
+    name: Setup, Build, and Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Authenticate with Google Cloud
-        uses: google-github-actions/auth@v1
+      # Authenticate with Google Cloud
+      - id: "auth"
+        uses: google-github-actions/auth@v1.1.1
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
-      - name: Set up Google Cloud SDK
+      # Setup gcloud CLI/SDK
+      - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: student-sandbox-project
 
-      - name: Configure Docker for Google Cloud
-        run: gcloud auth configure-docker --quiet
+      - name: Authorize Docker push
+        run: gcloud auth configure-docker $REGION-docker.pkg.dev
 
-      - name: Build Docker image (without pushing)
-        uses: docker/build-push-action@v4
-        with:
-          push: false
-          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}:${{ github.sha }}
-          platforms: linux/amd64
+      - name: Build and tag the docker image
+        run: |-
+          docker build --build-arg NODE_ENV=dev . --tag $REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA
 
-      - name: Push Docker image to Google Container Registry
-        run: |
-          IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}
-          docker push $IMAGE_NAME:${{ github.sha }}
+      - name: Push the image to the Google Artifact Registry (GAR)
+        run: |-
+          docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA
 
+      # - name: Build and push the Docker image
+      #   run: |-
+      #     gcloud builds submit . --tag $REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA
 
-      - name: Deploy to Cloud Run
-        uses: google-github-actions/deploy-cloudrun@main
-        with:
-          service: music-app-glen
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_IMAGE_REPOSITORY_NAME }}:${{ github.sha }}
-          region: europe-west1
-          platform: managed
-          allow-unauthenticated: true
-          timeout: 3600s 
+      - name: Deploy
+        run: |-
+          gcloud run deploy $APP_NAME \
+          --region $REGION \
+          --image $REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA \
+          --platform "managed" \
+          --service-account $SERVICE_ACCOUNT_EMAIL \
+          --port 80 \
+          --quiet
