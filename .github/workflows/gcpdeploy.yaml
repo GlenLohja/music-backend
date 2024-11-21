@@ -51,7 +51,7 @@ jobs:
         with:
           service: music-app-glen
           image: gcr.io/${{ secrets.GCP_PROJECT_ID}}/music-app-glen
-          region: ${{ secrets.GCP_REGION }}
+          region: europe-west1
           platform: managed
           allow-authenticated: true
         
