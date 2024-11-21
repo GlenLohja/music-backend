@@ -49,6 +49,12 @@ jobs:
             --build-arg DB_PASSWORD_SUPERBASE="${{ secrets.DB_PASSWORD_SUPERBASE }}" \
             --build-arg DB_TYPE="${{ secrets.DB_TYPE }}" \
             --build-arg PORT="${{ secrets.PORT }}" \
+            --build-arg JWT_SECRET="${{ secrets.JWT_SECRET }}" \
+            --build-arg GENIUS_HOST="${{ secrets.GENIUS_HOST }}" \
+            --build-arg GENIUS_CLIENT_ID="${{ secrets.GENIUS_CLIENT_ID }}" \
+            --build-arg GENIUS_CLIENT_SECRET="${{ secrets.GENIUS_CLIENT_SECRET }}" \
+            --build-arg GENIUS_CLIENT_ACCESS_TOKEN="${{ secrets.GENIUS_CLIENT_ACCESS_TOKEN }}" \
+            --build-arg DEFAULT_EXPIRATION_TIME="${{ secrets.DEFAULT_EXPIRATION_TIME }}" \
             -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest .
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest
 
