@@ -10,7 +10,7 @@ env:
   PROJECT_ID: student-sandbox-project
   REGION: europe-west1
   APP_NAME: music-app-glen
-  REGISTRY_NAME: gcr.io/student-sandbox-project/music-app-glen
+  REGISTRY_NAME: gcr.io
   SERVICE_ACCOUNT_EMAIL: githubaction@student-sandbox-project.iam.gserviceaccount.com
 
 jobs:
