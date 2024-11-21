@@ -36,9 +36,18 @@ jobs:
         run: |-
           docker build -t $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:latest .
 
-      - name: Push the image to the Google Artifact Registry (GAR)
-        run: |-
-          docker push $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:latest
+      - name: Build and Push Docker Image
+        working-directory: ./backend
+        run: |
+          docker build --build-arg DB_HOST=${{ secrets.DB_HOST_SUPERBASE }} \
+            --build-arg DB_PORT=${{ secrets.DB_PORT_SUPERBASE }} \
+            --build-arg DB_DATABASE=${{ secrets.DB_DATABASE_SUPERBASE }} \
+            --build-arg DB_USERNAME=${{ secrets.DB_USER_SUPERBASE }} \
+            --build-arg DB_PASSWORD=${{ secrets.DB_PASSWORD_SUPERBASE }} \
+            --build-arg DB_TYPE=${{ secrets.DB_TYPE }} \
+            --build-arg PORT=${{ secrets.PORT }} \
+            -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v1
