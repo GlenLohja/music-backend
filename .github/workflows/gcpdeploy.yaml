@@ -25,10 +25,10 @@ jobs:
         run: npm install
           
       - name: Google Auth
-        id: auth
-        uses: 'google-github-actions/auth@v1'
+      - id: "auth"
+        uses: google-github-actions/auth@v1.1.1
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
       - name: Docker Auth
         id: docker-auth
