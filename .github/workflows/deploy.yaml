@@ -36,7 +36,7 @@ jobs:
 
       - name: Build and tag the docker image
         run: |-
-          docker build --build-arg . --tag $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:$GITHUB_SHA
+          docker build --platform linux/amd64 -t $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:$GITHUB_SHA .
 
       - name: Push the image to the Google Artifact Registry (GAR)
         run: |-
