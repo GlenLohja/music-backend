@@ -43,8 +43,18 @@ jobs:
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: music-app-glen
+          service: node-glen
           image: gcr.io/${{ secrets.GCP_PROJECT_ID}}/node-glen:latest
-          region: ${{ secrets.GCP_REGION }}
+          region: europe-west1
           platform: managed
           allow-authenticated: true
+
+
+      - name: Allow unauthenticated access
+        run: |
+          gcloud run services add-iam-policy-binding node-glen \
+            --member="allUsers" \
+            --role="roles/run.invoker" \
+            --region=europe-west1 \
+            --platform=managed
+        
