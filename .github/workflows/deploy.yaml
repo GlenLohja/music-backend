@@ -42,16 +42,17 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           docker build \
-            --build-arg DB_HOST_SUPERBASE=${{ secrets.DB_HOST_SUPERBASE || "localhost" }} \
-            --build-arg DB_PORT_SUPERBASE=${{ secrets.DB_PORT_SUPERBASE || "5432" }} \
-            --build-arg DB_DATABASE_SUPERBASE=${{ secrets.DB_DATABASE_SUPERBASE || "database" }} \
-            --build-arg DB_USER_SUPERBASE=${{ secrets.DB_USER_SUPERBASE || "user" }} \
-            --build-arg DB_PASSWORD_SUPERBASE=${{ secrets.DB_PASSWORD_SUPERBASE || "password" }} \
-            --build-arg DB_TYPE=${{ secrets.DB_TYPE || "postgres" }} \
-            --build-arg PORT=${{ secrets.PORT || "8080" }} \
+            --build-arg DB_HOST_SUPERBASE="${{ secrets.DB_HOST_SUPERBASE }}" \
+            --build-arg DB_PORT_SUPERBASE="${{ secrets.DB_PORT_SUPERBASE }}" \
+            --build-arg DB_DATABASE_SUPERBASE="${{ secrets.DB_DATABASE_SUPERBASE }}" \
+            --build-arg DB_USER_SUPERBASE="${{ secrets.DB_USER_SUPERBASE }}" \
+            --build-arg DB_PASSWORD_SUPERBASE="${{ secrets.DB_PASSWORD_SUPERBASE }}" \
+            --build-arg DB_TYPE="${{ secrets.DB_TYPE }}" \
+            --build-arg PORT="${{ secrets.PORT }}" \
             -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest .
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest
 
+          
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v1
         with:
