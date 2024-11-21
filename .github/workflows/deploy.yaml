@@ -32,15 +32,15 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Authorize Docker push
-        run: gcloud auth configure-docker $REGION-docker.pkg.dev
+        run: gcloud auth configure-docker
 
       - name: Build and tag the docker image
         run: |-
-          docker build --build-arg NODE_ENV=dev . --tag $REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA
+          docker build --build-arg . --tag $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:$GITHUB_SHA
 
       - name: Push the image to the Google Artifact Registry (GAR)
         run: |-
-          docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA
+          docker push $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:$GITHUB_SHA
 
       # - name: Build and push the Docker image
       #   run: |-
