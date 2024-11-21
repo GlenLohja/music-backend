@@ -48,14 +48,14 @@ jobs:
             --build-arg DB_PASSWORD_SUPERBASE=${{ secrets.DB_PASSWORD_SUPERBASE }} \
             --build-arg DB_TYPE=${{ secrets.DB_TYPE }} \
             --build-arg PORT=${{ secrets.PORT }} \
-            -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-deploy-yacine:latest .
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-deploy-yacine:latest
+            -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: node-deploy-yacine
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID}}/node-deploy-yacine
+          service: node-glen
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID}}/node-glen
           region: ${{ secrets.GCP_REGION }}
           platform: managed
           allow-authenticated: true
@@ -63,7 +63,7 @@ jobs:
 
       - name: Allow unauthenticated access
         run: |
-          gcloud run services add-iam-policy-binding node-deploy-yacine \
+          gcloud run services add-iam-policy-binding node-glen \
             --member="allUsers" \
             --role="roles/run.invoker" \
             --region=europe-west1 \
