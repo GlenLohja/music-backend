@@ -55,6 +55,7 @@ jobs:
             --build-arg GENIUS_CLIENT_SECRET="${{ secrets.GENIUS_CLIENT_SECRET }}" \
             --build-arg GENIUS_CLIENT_ACCESS_TOKEN="${{ secrets.GENIUS_CLIENT_ACCESS_TOKEN }}" \
             --build-arg DEFAULT_EXPIRATION_TIME="${{ secrets.DEFAULT_EXPIRATION_TIME }}" \
+            --build-arg REDIS_URL="${{ secrets.REDIS_URL }}" \
             -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest .
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest
 
