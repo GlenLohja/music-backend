@@ -21,13 +21,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Authenticate with Google Cloud
       - id: "auth"
         uses: google-github-actions/auth@v1.1.1
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
-      # Setup gcloud CLI/SDK
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
 
@@ -42,10 +40,6 @@ jobs:
         run: |-
           docker push $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:$GITHUB_SHA
 
-      # - name: Build and push the Docker image
-      #   run: |-
-      #     gcloud builds submit . --tag $REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA
-
       - name: Deploy
         run: |-
           gcloud run deploy $APP_NAME \
@@ -53,5 +47,5 @@ jobs:
           --image $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:$GITHUB_SHA \
           --platform "managed" \
           --service-account $SERVICE_ACCOUNT_EMAIL \
-          --port 80 \
+          --port 8080 \
           --quiet
