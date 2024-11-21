@@ -58,7 +58,7 @@ jobs:
         with:
           service: node-glen
           image: gcr.io/${{ secrets.GCP_PROJECT_ID}}/node-glen
-          region: ${{ secrets.GCP_REGION }}
+          region: europe-west1
           platform: managed
           allow-authenticated: true
 
