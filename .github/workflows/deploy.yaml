@@ -37,7 +37,6 @@ jobs:
           docker build -t $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:latest .
 
       - name: Build and Push Docker Image
-        working-directory: ./backend
         run: |
           docker build --build-arg DB_HOST=${{ secrets.DB_HOST_SUPERBASE }} \
             --build-arg DB_PORT=${{ secrets.DB_PORT_SUPERBASE }} \
