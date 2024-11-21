@@ -10,7 +10,7 @@ env:
   PROJECT_ID: student-sandbox-project
   REGION: europe-west1
   APP_NAME: music-app-glen
-  REGISTRY_NAME: gcr.io/student-sandbox-project/music-app-glen
+  REGISTRY_NAME: eu.gcr.io/student-sandbox-project/music-app-glen
   SERVICE_ACCOUNT_EMAIL: githubaction@student-sandbox-project.iam.gserviceaccount.com
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
-      - name: Set up Cloud SDK
+      - name: Set up Cloud SDvK
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Authorize Docker push
