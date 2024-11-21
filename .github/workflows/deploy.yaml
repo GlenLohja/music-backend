@@ -43,7 +43,7 @@ jobs:
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: shop-bk-ivonne
+          service: music-app-glen
           image: gcr.io/${{ secrets.GCP_PROJECT_ID}}/node-glen:latest
           region: ${{ secrets.GCP_REGION }}
           platform: managed
