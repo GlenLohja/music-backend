@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' 
+          node-version: '16' 
 
       - name: Install dependencies
         run: npm install
@@ -41,31 +41,32 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build --build-arg DB_HOST=${{ secrets.DB_HOST }} \
-            --build-arg DB_PORT=${{ secrets.DB_PORT }} \
-            --build-arg DB_DATABASE=${{ secrets.DB_DATABASE }} \
-            --build-arg DB_USERNAME=${{ secrets.DB_USERNAME }} \
-            --build-arg DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+          docker build --build-arg DB_HOST_SUPERBASE=${{ secrets.DB_HOST_SUPERBASE }} \
+            --build-arg DB_PORT_SUPERBASE=${{ secrets.DB_PORT_SUPERBASE }} \
+            --build-arg DB_DATABASE_SUPERBASE=${{ secrets.DB_DATABASE_SUPERBASE }} \
+            --build-arg DB_USER_SUPERBASE=${{ secrets.DB_USER_SUPERBASE }} \
+            --build-arg DB_PASSWORD_SUPERBASE=${{ secrets.DB_PASSWORD_SUPERBASE }} \
             --build-arg DB_TYPE=${{ secrets.DB_TYPE }} \
             --build-arg PORT=${{ secrets.PORT }} \
-            -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest .
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-glen:latest
+            -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-deploy-yacine:latest .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-deploy-yacine:latest
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: node-glen
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID}}/node-glen
-          region: europe-west1
+          service: node-deploy-yacine
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID}}/node-deploy-yacine
+          region: ${{ secrets.GCP_REGION }}
           platform: managed
           allow-authenticated: true
 
 
       - name: Allow unauthenticated access
         run: |
-          gcloud run services add-iam-policy-binding node-glen \
+          gcloud run services add-iam-policy-binding node-deploy-yacine \
             --member="allUsers" \
             --role="roles/run.invoker" \
             --region=europe-west1 \
             --platform=managed
+        
         

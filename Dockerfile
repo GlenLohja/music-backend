@@ -1,6 +1,26 @@
 # Use a Node.js base image
 FROM node:18
 
+
+
+# Define ARGs
+ARG DB_HOST_SUPERBASE
+ARG DB_PORT
+ARG DB_DATABASE
+ARG DB_USERNAME
+ARG DB_PASSWORD
+ARG DB_TYPE
+ARG PORT
+
+# Use ARGs in ENV
+ENV DB_HOST_SUPERBASE=${DB_HOST_SUPERBASE}
+ENV DB_PORT_SUPERBASE=${DB_PORT_SUPERBASE}
+ENV DB_DATABASE_SUPERBASE=${DB_DATABASE_SUPERBASE}
+ENV DB_USER_SUPERBASE=${DB_USER_SUPERBASE}
+ENV DB_PASSWORD_SUPERBASE=${DB_PASSWORD_SUPERBASE}
+ENV DB_TYPE=${DB_TYPE}
+ENV PORT=${PORT}
+
 # Set the working directory
 WORKDIR /app
 
@@ -17,14 +37,11 @@ COPY . .
 # Build TypeScript code
 RUN npm run build
 
-# Remove development dependencies for production
-RUN npm prune --production
 
 # Expose the port your app will run on
 EXPOSE 8080
 
-# Set environment variables
-ENV NODE_ENV=production
+
 ENV PORT=8080
 
 # Start the application
