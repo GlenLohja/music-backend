@@ -11,7 +11,7 @@ env:
   REGION: europe-west1
   APP_NAME: music-app-glen
   REGISTRY_NAME: gcr.io
-  SERVICE_ACCOUNT_EMAIL: githubaction@student-sandbox-project.iam.gserviceaccount.com
+  SERVICE_ACCOUNT_EMAIL: ivonne-app-sa@student-sandbox-project.iam.gserviceaccount.com
 
 jobs:
   build-and-deploy:
@@ -30,7 +30,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Authorize Docker push
-        run: gcloud auth configure-docker gcr.io
+        run: gcloud auth configure-docker
 
       - name: Build and tag the docker image
         run: |-
