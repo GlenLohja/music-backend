@@ -9,7 +9,7 @@ on:
 env:
   PROJECT_ID: student-sandbox-project
   REGION: europe-west1
-  APP_NAME: music-app-glen
+  APP_NAME: musicglen
   REGISTRY_NAME: gcr.io
   SERVICE_ACCOUNT_EMAIL: ivonne-app-sa@student-sandbox-project.iam.gserviceaccount.com
 
@@ -34,7 +34,7 @@ jobs:
 
       - name: Build and tag the docker image
         run: |-
-          docker build --platform linux/amd64 -t $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:$GITHUB_SHA .
+          docker build -t $REGISTRY_NAME/$PROJECT_ID/$APP_NAME:$GITHUB_SHA .
 
       - name: Push the image to the Google Artifact Registry (GAR)
         run: |-
