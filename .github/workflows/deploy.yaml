@@ -19,11 +19,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' 
+          node-version: '18' 
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./
           
       - name: Google Auth
         id: auth
@@ -41,7 +40,6 @@ jobs:
           registry: 'gcr.io'
 
       - name: Build and Push Docker Image
-        working-directory: ./
         run: |
           docker build --build-arg DB_HOST=${{ secrets.DB_HOST }} \
             --build-arg DB_PORT=${{ secrets.DB_PORT }} \
